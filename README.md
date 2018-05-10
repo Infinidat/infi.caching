@@ -5,13 +5,7 @@ This project was splitted from infi.pyutils.lazy, while the latter is being phas
 
 Usage
 -----
-Add infi.caching to the buildout.cfg file of your project.
-Import various mechanisms into your code and use them.
-
-```bash
-# add infi.caching to buildout.cfg
-projector requirements add infi.caching
-```
+Add infi.caching to your project requirements, and start using inside the code:
 
 ```python
 # use infi.caching mechanisms in your project
