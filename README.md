@@ -17,7 +17,11 @@ projector requirements add infi.caching
 # use infi.caching mechanisms in your project
 from infi.caching import cached_function
 @cached_function
-def sample_cached_function(number):
-    return number
+def sample_cached_square(number):
+    print 'Number given: %d, Number given squared: %d' % (number, number ** 2)
+    return number ** 2
+
+sample_cached_square(2)  # calling sample_cached_square with number=2 for the first time, no caching
+sample_cached_square(2)  # calling sample_cached_square with number=2 for the second time, caching
 ```
 
