@@ -19,3 +19,4 @@ sample_cached_square(2)  # calling sample_cached_square with number=2 for the fi
 sample_cached_square(2)  # calling sample_cached_square with number=2 for the second time, caching
 ```
 
+Python 3 support is experimental and not fully tested.

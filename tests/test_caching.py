@@ -48,17 +48,17 @@ class TestCase(test_utils.TestCase):
 class CachedPropertyTest(TestCase):
 
     def test__cached_property(self):
-        self.assertEquals(self.subject.prop, 1)
+        self.assertEqual(self.subject.prop, 1)
 
     def test__clear_cache(self):
-        self.assertEquals(self.subject.prop, 1)
+        self.assertEqual(self.subject.prop, 1)
         clear_cache(self.subject)
-        self.assertEquals(self.subject.prop, 2)
+        self.assertEqual(self.subject.prop, 2)
 
     def test__populate_cache(self):
-        self.assertEquals(self.subject._counter, 0)
+        self.assertEqual(self.subject._counter, 0)
         populate_cache(self.subject)
-        self.assertEquals(self.subject._counter, 1)
+        self.assertEqual(self.subject._counter, 1)
 
 poll_time = 0.05
 
@@ -74,45 +74,45 @@ class CachedMethodTest(TestCase):
                         self.subject.cached_method_2.__name__ == self.subject.orig_method.__name__)
 
     def test__cached_method(self):
-        self.assertEquals(self.subject.cached_method_1(1), 1)
-        self.assertEquals(self.subject.cached_method_1(1), 1)
-        self.assertEquals(self.subject.cached_method_2(1), 2)
+        self.assertEqual(self.subject.cached_method_1(1), 1)
+        self.assertEqual(self.subject.cached_method_1(1), 1)
+        self.assertEqual(self.subject.cached_method_2(1), 2)
 
     def test__clear_cache(self):
-        self.assertEquals(self.subject.cached_method_1(1), 1)
-        self.assertEquals(self.subject.cached_method_1(1), 1)
+        self.assertEqual(self.subject.cached_method_1(1), 1)
+        self.assertEqual(self.subject.cached_method_1(1), 1)
         clear_cache(self.subject)
-        self.assertEquals(self.subject.cached_method_1(1), 2)
+        self.assertEqual(self.subject.cached_method_1(1), 2)
 
     def test__args(self):
         clear_cache(self.subject)
-        self.assertEquals(self.subject.cached_method_3(1), 1)
-        self.assertEquals(self.subject.cached_method_3(1), 1)
-        self.assertEquals(self.subject.cached_method_3(2), 2)
-        self.assertEquals(self.subject.cached_method_3(2), 2)
+        self.assertEqual(self.subject.cached_method_3(1), 1)
+        self.assertEqual(self.subject.cached_method_3(1), 1)
+        self.assertEqual(self.subject.cached_method_3(2), 2)
+        self.assertEqual(self.subject.cached_method_3(2), 2)
 
     def test__mutable_args(self):
         clear_cache(self.subject)
-        self.assertEquals(self.subject.cached_method_3([1]), 1)
-        self.assertEquals(self.subject.cached_method_3([1]), 2)
+        self.assertEqual(self.subject.cached_method_3([1]), 1)
+        self.assertEqual(self.subject.cached_method_3([1]), 2)
 
     def test__kwargs(self):
         clear_cache(self.subject)
-        self.assertEquals(self.subject.cached_method_3(value=1), 1)
-        self.assertEquals(self.subject.cached_method_3(value=1), 1)
-        self.assertEquals(self.subject.cached_method_3(value=2), 2)
-        self.assertEquals(self.subject.cached_method_3(value=2), 2)
+        self.assertEqual(self.subject.cached_method_3(value=1), 1)
+        self.assertEqual(self.subject.cached_method_3(value=1), 1)
+        self.assertEqual(self.subject.cached_method_3(value=2), 2)
+        self.assertEqual(self.subject.cached_method_3(value=2), 2)
 
     def test__mutable_kwargs(self):
         clear_cache(self.subject)
-        self.assertEquals(self.subject.cached_method_3(value=[1]), 1)
-        self.assertEquals(self.subject.cached_method_3(value=[1]), 2)
+        self.assertEqual(self.subject.cached_method_3(value=[1]), 1)
+        self.assertEqual(self.subject.cached_method_3(value=[1]), 2)
 
     def test__no_args_and_kwargs(self):
         clear_cache(self.subject)
-        self.assertEquals(self.subject.cached_method_4(), 1)
-        self.assertEquals(self.subject.prop, 2)
-        self.assertEquals(self.subject.cached_method_4(), 1)
+        self.assertEqual(self.subject.cached_method_4(), 1)
+        self.assertEqual(self.subject.prop, 2)
+        self.assertEqual(self.subject.cached_method_4(), 1)
         clear_cache(self.subject)
 
     def test_caching_method_on_class_instance(self):
@@ -132,7 +132,7 @@ class CachedMethodTest(TestCase):
         foo = Foo()
         for i in range(1, 5):
             for j in range(5):
-                self.assertEquals(foo.tested_method(), i)
+                self.assertEqual(foo.tested_method(), i)
             foo.invalidate_cache()
 
     def test_caching_method_on_external_call(self):
@@ -148,11 +148,11 @@ class CachedMethodTest(TestCase):
 
         bar = Bar()
         for _ in range(3):
-            self.assertEquals(bar.tested_method(), 1)
+            self.assertEqual(bar.tested_method(), 1)
 
         time.sleep(poll_time + 0.01)
         for _ in range(3):
-            self.assertEquals(bar.tested_method(), 2)
+            self.assertEqual(bar.tested_method(), 2)
 
     def test_single_class_with_two_caches(self):
         class FooBar(object):
@@ -177,17 +177,17 @@ class CachedMethodTest(TestCase):
         foobar = FooBar()
         for i in range(1, 10):
             for j in range(10):
-                self.assertEquals(foobar.data_cache(), i)
+                self.assertEqual(foobar.data_cache(), i)
                 time.sleep(0.01)
             foobar.invalidate_cache()
 
         for _ in range(3):
-            self.assertEquals(foobar.timer_cache(), 1)
+            self.assertEqual(foobar.timer_cache(), 1)
             foobar.invalidate_cache()
 
         time.sleep(poll_time + 0.1)
         for _ in range(3):
-            self.assertEquals(foobar.timer_cache(), 2)
+            self.assertEqual(foobar.timer_cache(), 2)
             foobar.invalidate_cache()
 
 
@@ -239,19 +239,19 @@ class ClearCachedEntryTest(TestCase):
     def test_on_instance_method__no_args(self):
         counter = Counter()
         method = counter.count
-        self.assertEquals(method(), 1)
-        self.assertEquals(method(), 1)
+        self.assertEqual(method(), 1)
+        self.assertEqual(method(), 1)
         clear_cached_entry(method)
-        self.assertEquals(method(), 2)
+        self.assertEqual(method(), 2)
 
     def test_on_instance_method__with_args(self):
         counter = Counter()
         method = counter.sum
-        self.assertEquals(method(1), 1)
+        self.assertEqual(method(1), 1)
         counter.count()
-        self.assertEquals(method(1), 1)
+        self.assertEqual(method(1), 1)
         clear_cached_entry(method, 1)
-        self.assertEquals(method(1), 2)
+        self.assertEqual(method(1), 2)
 
     def test_on_function__with_args(self):
         count = 0
@@ -259,18 +259,18 @@ class ClearCachedEntryTest(TestCase):
         @cached_function
         def sum(num):
             return num + count
-        self.assertEquals(sum(1), 1)
-        self.assertEquals(sum(1), 1)
+        self.assertEqual(sum(1), 1)
+        self.assertEqual(sum(1), 1)
         count = 2
-        self.assertEquals(sum(1), 1)
+        self.assertEqual(sum(1), 1)
         clear_cached_entry(sum, 1)
-        self.assertEquals(sum(1), 3)
+        self.assertEqual(sum(1), 3)
 
     def test_clear_cached_entry_with_mismatching_args_does_nothing(self):
         counter = Counter()
         method = counter.sum
-        self.assertEquals(method(1), 1)
+        self.assertEqual(method(1), 1)
         counter.count()
-        self.assertEquals(method(1), 1)
+        self.assertEqual(method(1), 1)
         clear_cached_entry(method, 3)
-        self.assertEquals(method(1), 1)
+        self.assertEqual(method(1), 1)
